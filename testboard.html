@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eFour: Chess Notation Game</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <title>Simple Chessboard Test</title>
     <link href="libs/chessboardjs/chessboard.css" rel="stylesheet">
 </head>
-
 <body>
     <header>
         <h1>eFour: Master Chess Notation, One Move at a Time</h1>
     </header>
     <main>
-        <div id="myBoard"></div>
-        <div id="notationInputDiv">
-            <input type="text" id="notationInput" placeholder="Enter the notation...">
-        </div>
+        <div id="board1" style="width: 400px"></div>
     </main>
     <footer>
         <p>Developed by Steven Brown</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <script src="libs/chessboardjs/chessboard.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script>
+        var board1 = Chessboard('board1', {
+        position: 'start',
+        pieceTheme: 'libs/chessboardjs/img/chesspieces/wikipedia/{piece}.png'
+});
+    </script>
 </body>
 </html>
