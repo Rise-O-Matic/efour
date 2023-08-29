@@ -13,8 +13,17 @@
     <header>
         <h1>eFour: Master Chess Notation, One Move at a Time</h1>
     </header>
-    <main>
-        <div id="myBoard"></div>
+    <div class="toggle-container">
+        <label for="coordinateToggle">Show Coordinates:</label>
+        <input type="checkbox" id="coordinateToggle" checked>
+    </div>
+    <main class="white-oriented">
+        <div id="infoPanel">
+            <p><strong>Board Orientation:</strong> <span id="boardOrientation">White</span></p>
+            <p><strong>Current Level:</strong> <span id="currentLevel">Full</span></p>
+            <p><strong>User Prompt:</strong> <span id="userPrompt">Enter your move</span></p>
+        </div>
+        <div id="board"></div>
         <div id="notationInputDiv">
             <input type="text" id="notationInput" placeholder="Enter the notation...">
         </div>
@@ -26,5 +35,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <script src="libs/chessboardjs/chessboard.js"></script>
     <script src="scripts/main.js"></script>
+    
+
+
+
 </body>
 </html>

@@ -1,120 +1,180 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var board,
-        game = new Chess();
-        currentPiece,  // Declare global variable for the current piece
-        currentSquare;  // Declare global variable for the current square's position
-        
+// Global variables
+var board;
+var pieces = ['P', 'R', 'N', 'B', 'Q', 'K'];
+var currentPieceWhite, currentPieceBlack, currentSquareWhite, currentSquareBlack;
+
+// Initialize the board with unmovable pieces
+function initBoard() {
     var cfg = {
-        draggable: true,
+        draggable: false,
         position: 'empty',
-        onDragStart: onDragStart,
-        onDrop: onDrop,
         pieceTheme: 'libs/chessboardjs/img/chesspieces/wikipedia/{piece}.png'
     };
-
-    board = Chessboard('myBoard', cfg);
-
-    var pieces = ['P', 'R', 'N', 'B', 'Q', 'K'];
-    var squares = [
-        'a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1',
-        'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2',
-        'a3', 'b3', 'c3', 'd3', 'e3', 'f3', 'g3', 'h3',
-        'a4', 'b4', 'c4', 'd4', 'e4', 'f4', 'g4', 'h4',
-        'a5', 'b5', 'c5', 'd5', 'e5', 'f5', 'g5', 'h5',
-        'a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6',
-        'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7',
-        'a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8',
-
-    ];
-
-// Global variables
-var currentPiece, currentSquare;
-
-function randomPieceAndPosition() {
-    currentPiece = pieces[Math.floor(Math.random() * pieces.length)];
-    currentSquare = squares[Math.floor(Math.random() * squares.length)];
-
-    game.clear();
-    game.put({ type: currentPiece.toLowerCase(), color: 'w' }, currentSquare);
-
-    var fen = game.fen();
-    console.log("Generated FEN:", fen);
-    console.log("Correct Answer: Piece -", currentPiece, "Square -", currentSquare);  // Reporting the correct answer to the console
-    board.position(fen, false);
+    board = Chessboard('board', cfg);
 }
 
+function getRandomPieceAndSquare() {
+    const notation = generateRandomPieceAndSquare();
+    return {
+        notation: notation,
+        piece: notation.charAt(0),
+        square: notation.substr(1)
+    };
+}
+
+// Consolidated function for generating a random piece and square
+function generateRandomPieceAndSquare() {
+    var files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    var ranks = ['1', '2', '3', '4', '5', '6', '7', '8'];
+    var randomFile = files[Math.floor(Math.random() * files.length)];
+    var randomRank = ranks[Math.floor(Math.random() * ranks.length)];
+    
+    var piece = pieces[Math.floor(Math.random() * pieces.length)];
+    
+    // Check if the generated piece is a pawn and set to empty string
+    if (piece === "P") {
+        piece = "";
+    }
+    
+    var notation = piece + randomFile + randomRank;
+    
+    console.log(`Generated Random Notation (Correct Answer): ${notation}`);
+    return notation;
+}
+
+// Convert the algebraic notation into the format for board.position
+function transcodeNotationForBoardPosition(notation, color) {
+    var piece;
+    var square;
+
+    if (notation.length === 2) {
+        piece = 'P';
+        square = notation;
+    } else if (notation.length === 3) {
+        piece = notation.charAt(0);
+        square = notation.substr(1, 2);
+    } else {
+        console.error("Invalid notation:", notation);
+        return {};
+    }
+
+    var position = {};
+    position[square] = (color === 'white' ? 'w' : 'b') + piece.toUpperCase();
+
+    console.log(`Notation: ${notation}, Resultant position object:`, position);
+    return position;
+}
+
+
+// Use the transcoded notation to place a piece on the board
+function placePieceOnBoard(notation, color) {
+    var position = transcodeNotationForBoardPosition(notation, color);
+    board.position(position, false);
+}
+
+// Generate and place a random piece (or two for the dual mode)
+function randomPieceAndPosition(isTwoPieces = false) {
+    const whiteData = getRandomPieceAndSquare();
+    currentPieceWhite = whiteData.piece;
+    currentSquareWhite = whiteData.square;
+    placePieceOnBoard(whiteData.notation, 'white');
+    
+    if (isTwoPieces) {
+        let blackData;
+        do {
+            blackData = getRandomPieceAndSquare();
+        } while (blackData.square === currentSquareWhite);
+        
+        currentPieceBlack = blackData.piece;
+        currentSquareBlack = blackData.square;
+        placePieceOnBoard(blackData.notation, 'black');
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    initBoard();
+    randomPieceAndPosition();
+});
+
+// Handle user input
 document.getElementById('notationInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
-        var inputValue = e.target.value.trim().toUpperCase();
-        
-        var userPiece = (inputValue.length === 3) ? inputValue[0] : 'P'; // Default to Pawn if not specified
-        var userSquare = (inputValue.length === 3) ? inputValue.substr(1).toLowerCase() : inputValue.toLowerCase();
-
-        var currentPosition = board.position();
-        var pieceAtSquare = currentPosition[userSquare];
-        
-        console.log("Piece at square (from board.position()):", pieceAtSquare);
-        console.log("User's expected piece:", userPiece);
-
-        if (pieceAtSquare && pieceAtSquare[1] === userPiece) {
-            randomPieceAndPosition();
-            e.target.value = '';
+        var inputValue = e.target.value.trim();
+        if (validateUserInput(inputValue)) {
+            console.log('Correct notation');
+            randomPieceAndPosition(currentLevel.mode === 'dual');
         } else {
             console.log('Incorrect notation');
-        }        
+        }
     }
 });
 
 
+// Current level configuration
+var currentLevel = {
+    mode: 'full',
+    turn: 'white',
+    coordinates: true
+};
 
+function validatePieceOnly(input) {
+    if (currentLevel.turn === 'white') {
+        return input === currentPieceWhite;
+    } else {
+        return input === currentPieceBlack;
+    }
+}
 
+function validateRankOnly(input) {
+    if (currentLevel.turn === 'white') {
+        return input === currentSquareWhite.charAt(1);
+    } else {
+        return input === currentSquareBlack.charAt(1);
+    }
+}
 
+function validateFileOnly(input) {
+    if (currentLevel.turn === 'white') {
+        return input === currentSquareWhite.charAt(0);
+    } else {
+        return input === currentSquareBlack.charAt(0);
+    }
+}
 
+function validateFullNotation(input) {
+    if (currentLevel.turn === 'white') {
+        return input === (currentPieceWhite + currentSquareWhite);
+    } else {
+        return input === (currentPieceBlack + currentSquareBlack);
+    }
+}
 
- randomPieceAndPosition();
+function validateDualNotation(input) {
+    var firstPiece = input.charAt(0);
+    var firstSquare = input.substr(1, 2);
+    var secondPiece = input.charAt(3);
+    var secondSquare = input.substr(4, 2);
+    
+    return (firstPiece === currentPieceWhite && firstSquare === currentSquareWhite) && 
+           (secondPiece === currentPieceBlack && secondSquare === currentSquareBlack);
+}
 
-    function onDragStart(source, piece, position, orientation) {
-        if (game.in_checkmate() === true || game.in_draw() === true || 
-            piece.search(/^b/) !== -1) {
+function validateUserInput(input) {
+    switch (currentLevel.mode) {
+        case 'piece':
+            return validatePieceOnly(input);
+        case 'rank':
+            return validateRankOnly(input);
+        case 'file':
+            return validateFileOnly(input);
+        case 'full':
+            return validateFullNotation(input);
+        case 'dual':
+            return validateDualNotation(input);
+        default:
+            console.error("Invalid game mode:", currentLevel.mode);
             return false;
-        }
     }
-
-    function onDrop(source, target) {
-        var move = game.move({
-            from: source,
-            to: target,
-            promotion: 'q'
-        });
-
-        if (move === null) return 'snapback';
-
-        updateStatus();
-    }
-
-    function updateStatus() {
-        var status = '';
-
-        var moveColor = 'White';
-        if (game.turn() === 'b') {
-            moveColor = 'Black';
-        }
-
-        if (game.in_checkmate()) {
-            status = 'Game over, ' + moveColor + ' is in checkmate.';
-        }
-        else if (game.in_draw()) {
-            status = 'Game over, drawn position';
-        }
-        else {
-            status = moveColor + ' to move';
-            if (game.in_check()) {
-                status += ', ' + moveColor + ' is in check';
-            }
-        }
-
-        console.log(status);
-    };
-});
-
+}
 

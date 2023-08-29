@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #756b6b;
     margin: 0;
     padding: 0;
 }
@@ -13,11 +13,54 @@ header {
 }
 
 main {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 150px); /* Adjusts for header and footer */
 }
+
+#board {
+    position: relative; 
+    overflow: visible;
+    width: 400px !important;
+    z-index: 1; /* Ensure the board is displayed on top */
+}
+
+#infoPanel {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px; /* or adjust as per your layout */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+#infoPanel p {
+    margin: 0 0 10px 0;
+}
+
+#board.white-oriented::before,
+#board.black-oriented::after {
+    content: '';
+    position: absolute;
+    width: 40px;  /* or the width of your king image */
+    height: 40px; /* or the height of your king image */
+    top: -50px;   /* adjust as necessary */
+    left: 50%;    /* center the image */
+    transform: translateX(-50%); /* center the image */
+}
+
+#board.white-oriented::after,
+#board.black-oriented::before {
+    content: '';
+    position: absolute;
+    width: 40px;  /* or the width of your king image */
+    height: 40px; /* or the height of your king image */
+    bottom: -50px; /* adjust as necessary */
+    left: 50%;    /* center the image */
+    transform: translateX(-50%); /* center the image */
+}
+
 
 footer {
     background-color: #333;
@@ -29,6 +72,25 @@ footer {
     width: 100%;
 }
 
-#myBoard {
-    width: 400px !important;
+
+#notationInputDiv {
+    margin-top: 20px;
+    text-align: center;
 }
+
+#notationInput {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+
+.toggle-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+.toggle-container label {
+    color: white;
+}
+
