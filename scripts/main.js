@@ -1,6 +1,8 @@
 // Global variables
 var board;
 var pieces = ['P', 'R', 'N', 'B', 'Q', 'K'];
+var files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+var ranks = ['1', '2', '3', '4', '5', '6', '7', '8'];
 var currentPieceWhite, currentPieceBlack, currentSquareWhite, currentSquareBlack;
 
 // Initialize the board with unmovable pieces
@@ -8,7 +10,8 @@ function initBoard() {
     var cfg = {
         draggable: false,
         position: 'empty',
-        pieceTheme: 'libs/chessboardjs/img/chesspieces/wikipedia/{piece}.png'
+        pieceTheme: 'libs/chessboardjs/img/chesspieces/wikipedia/{piece}.png',
+        showNotation: false,
     };
     board = Chessboard('board', cfg);
 }
@@ -24,17 +27,18 @@ function getRandomPieceAndSquare() {
 
 // Consolidated function for generating a random piece and square
 function generateRandomPieceAndSquare() {
-    var files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    var ranks = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+    var piece = pieces[Math.floor(Math.random() * pieces.length)];
+    // Adjust ranks based on piece type
+    if (piece === "P") { // White pawn
+        piece = ""; // Convert notation
+        ranks.splice(ranks.indexOf('1'), 1); // Remove '1' from ranks
+    } else if (piece === "p") { // Black pawn
+        ranks.splice(ranks.indexOf('8'), 1); // Remove '8' from ranks
+    }
+
     var randomFile = files[Math.floor(Math.random() * files.length)];
     var randomRank = ranks[Math.floor(Math.random() * ranks.length)];
-    
-    var piece = pieces[Math.floor(Math.random() * pieces.length)];
-    
-    // Check if the generated piece is a pawn and set to empty string
-    if (piece === "P") {
-        piece = "";
-    }
     
     var notation = piece + randomFile + randomRank;
     
