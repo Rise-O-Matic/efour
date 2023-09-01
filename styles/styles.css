@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #26252c;
     color: #fff;
     text-align: center;
     padding: 1em 0;
@@ -20,6 +20,15 @@ main {
     align-items: center;
     height: calc(100vh - 150px); /* Adjusts for header and footer */
 }
+
+.white-oriented {
+    background-color: #393842; /* Or any light color of your choice */
+}
+
+.black-oriented {
+    background-color: #19181d; /* Or any dark color of your choice */
+}
+
 
 #board {
     position: relative; 
@@ -64,7 +73,7 @@ main {
 
 
 footer {
-    background-color: #333;
+    background-color: #26252c;
     color: #fff;
     text-align: center;
     padding: 1em 0;
