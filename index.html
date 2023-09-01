@@ -7,6 +7,8 @@
     <title>eFour: Chess Notation Game</title>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link href="libs/chessboardjs/chessboard.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -24,6 +26,9 @@
             <p><strong>User Prompt:</strong> <span id="userPrompt">Enter your move</span></p>
         </div>
         <div id="board"></div>
+        <div id="progressBarContainer">
+            <progress id="progressBar" value="0" max="100"></progress>
+        </div>
         <div id="notationInputDiv">
             <input type="text" id="notationInput" placeholder="Enter the notation...">
         </div>
