@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'Perfect DOS VGA 437';
+    src: url('assets/fonts/Perfect DOS VGA 437.ttf') format('truetype'),
+         
+  }
+  
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #756b6b;
+    font-family: monospace;
+    font-size: large;
     margin: 0;
     padding: 0;
 }
@@ -8,11 +15,13 @@ body {
 header {
     background-color: #26252c;
     color: #fff;
-    text-align: center;
+    text-align: left;
     padding: 1em 0;
+    padding-left: 1em;
 }
 
 main {
+    color: #fff;
     position: relative;
     display: flex;
     flex-direction:column;
@@ -48,11 +57,10 @@ main {
 
 
 #infoPanel {
-    background-color: #f4f4f4;
+    background-color: #ffffff00;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px; /* or adjust as per your layout */
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 #infoPanel p {
@@ -93,24 +101,57 @@ footer {
 }
 
 
-#notationInputDiv {
+#userInputDiv {
     margin-top: 20px;
     text-align: center;
+    
 }
 
-#notationInput {
+#userInput {
+    font-family: monospace;
     padding: 5px 10px;
     font-size: 16px;
+    width: 360px;
 }
 
 
-.toggle-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
-}
-.toggle-container label {
-    color: white;
+#particle-container {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100vw;  /* Cover full viewport width */
+    height: 100vh; /* Cover full viewport height */
+    pointer-events: none;
+    z-index: 9999;
 }
 
+.particle {
+    position: absolute;
+    overflow: hidden;
+    background-color: #00b7ff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 1;
+    pointer-events: none;
+    transition: all 2s ease-out;
+    mix-blend-mode: lighten;
+    z-index: 10000;
+}
+
+
+/* CSS for 180-degree rotation */
+.rotate-board {
+    animation: rotate-board-animation .3s ease-in-out;
+  }
+  
+  @keyframes rotate-board-animation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+  

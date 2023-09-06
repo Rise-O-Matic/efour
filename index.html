@@ -1,44 +1,59 @@
+
+
+
+<!--====index.html====*/-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eFour: Chess Notation Game</title>
+    <title>eFour: Spacial Trainer</title>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link href="libs/chessboardjs/chessboard.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+
     <header>
-        <h1>eFour: Master Chess Notation, One Move at a Time</h1>
+        <p>eFour: Spatial Trainer<p>
     </header>
-    <div class="toggle-container">
-        <label for="coordinateToggle">Show Coordinates:</label>
-        <input type="checkbox" id="coordinateToggle" unchecked>
-    </div>
+
+    <div id="testDiv"></div>
+
+    <div id="particle-container"></div>
+
     <main class="white-oriented">
         <div id="infoPanel">
             <p><strong>Board Orientation:</strong> <span id="boardOrientation">White</span></p>
-            <p><strong><span id="currentLevel">:</strong> <span id="currentMode">Full</span></p>
-            <span id="userPrompt">Enter your move</span></p>
+            <!-- <p><strong><span id="currentLevel">:</strong> <span id="currentMode">Full</span></p> -->
         </div>
         <div id="board"></div>
         <div id="progressBarContainer">
             <progress id="progressBar" value="0" max="100"></progress>
         </div>
-        <div id="notationInputDiv">
-            <input type="text" id="notationInput" placeholder="Enter the notation...">
+        <div id="userInputDiv">
+            <input type="text" id="userInput" placeholder="Enter the notation..." autofocus>
         </div>
     </main>
+
     <footer>
         <p>Developed by Steven Brown</p>
     </footer>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <script src="libs/chessboardjs/chessboard.js"></script>
+    <script src="libs/chessboard-arrows-master/chessboard-arrows.js"></script>
+    <script src="scripts/commonFunctions.js"></script>
+    <script src="scripts/initBoard.js"></script>
+    <script src="scripts/gameCoordinateTraining.js"></script>
     <script src="scripts/main.js"></script>
+    
 
 </body>
 </html>
