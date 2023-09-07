@@ -155,3 +155,11 @@ footer {
     }
   }
   
+  .chessboard .notation .notation-label-rank {
+    display: none;
+  }
+  
+  .chessboard .notation .notation-label-file {
+    display: none;
+  }
+  

@@ -6,22 +6,27 @@
 let hintTimeout;  // Declare this variable at the top scope to manage the timeout
 var board; // Global variable to store the chessboard object
 var lastOrientation; // Variable to store the last orientation
+var currentOrientation; // Variable to store the current orientation
 
 // Initialize the board with unmovable pieces
 function initBoard() {
 
   //console.log("InitBoard called");
   console.log("Current levelCounter: ", levelCounter);
-  //console.log("Display Coordinates: ", levels[levelCounter-1].displayCoordinates);
+
+  // Get the current level configuration
+  var currentLevelConfig = levels[levelCounter-1];
+
+  var currentOrientation = levels[levelCounter-1].boardOrientation; // Get the board orientation from the current level configuration
+  if (currentOrientation === "random") {
+      currentOrientation = Math.random() < 0.5 ? "white" : "black"; // Randomly set to "white" or "black"
+  }
 
   // Clear any existing timeouts
   clearTimeout(hintTimeout);
     
-  // Randomly choose between white and black for the orientation
-  var randomOrientation = Math.random() < 0.5 ? 'white' : 'black';
-
   // Check if the orientation has changed and apply the rotation if it has
-  if (lastOrientation && lastOrientation !== randomOrientation) {
+  if (lastOrientation && lastOrientation !== currentOrientation) {
     var boardElement = document.getElementById('board');
     boardElement.classList.add('rotate-board');
     console.log('rotating board');
@@ -35,24 +40,23 @@ function initBoard() {
   };
   
   
-  
   // Initialize the board with the current orientation
   board = Chessboard('board', {
     draggable: false,
     position: 'empty',
     pieceTheme: 'libs/chessboardjs/img/chesspieces/wikipedia/{piece}.png',
     showNotation: levels[levelCounter - 1].displayCoordinates,
-    orientation: randomOrientation
+    orientation: currentOrientation
   });
 
   // Update the last orientation variable
-  lastOrientation = randomOrientation;
+  lastOrientation = currentOrientation;
 
   // Update the background color based on orientation
   var mainElement = document.querySelector('main');
     var orientationSpan = document.getElementById('boardOrientation'); // <-- Get the span that will display orientation
 
-    if (randomOrientation === 'white') {
+    if (currentOrientation === 'white') {
         mainElement.className = 'white-oriented';
         orientationSpan.innerText = 'White'; // <-- Update the span text
     } else {
@@ -60,7 +64,10 @@ function initBoard() {
         orientationSpan.innerText = 'Black'; // <-- Update the span text
     }
 
+  // Update the info panel with the current level information
 
+  document.getElementById('levelNameElement').innerText = currentLevelConfig.levelName;
+  document.getElementById('levelCounterElement').innerText = currentLevelConfig.levelNumber;
 
   gameMode()
 
