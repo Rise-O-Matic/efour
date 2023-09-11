@@ -59,9 +59,7 @@ let inputField = document.getElementById("userInput");
       // Clear the field
       inputField.value = "";
       
-      // Reinitialize the board
-        initBoard(levelCounter);
-        updateNotationDisplay(levels[levelCounter-1].displayMode);
+      
     }
   });
 }
@@ -94,7 +92,7 @@ function spawnParticles(numParticles) {
   }
 }
 
-
+// Update the progress bar and level up if necessary
 function updateProgressBar() {
     var progressBar = document.getElementById("progressBar");
     
@@ -103,20 +101,23 @@ function updateProgressBar() {
     progressBar.value = score; // Update the progress bar value
     
     if (score >= 100) {
-      //console.log("Level up");
-      //console.log("New levelCounter: ", levelCounter);
-      //console.log("Display Coordinates for next level: ", levels[levelCounter].displayCoordinates);
-      levelUpSound.play();
-      spawnParticles(200);
-      score = 0; // Reset the score
-      progressBar.value = 0; // Explicitly reset the progress bar value
       levelCounter++; // Increment the counter (global variable)
-      //document.getElementById('currentLevel').innerText = `Level ${levelCounter}:`; // Update the span text
+      levelUp();
       initBoard(levelCounter);
+      
 
     }else{
       correctAnswerSound.play();
+      initBoard(levelCounter);
     }
+}
+
+function levelUp() {
+  levelUpSound.play();
+  spawnParticles(200);
+  progressBar.value = 0; // Explicitly reset the progress bar value
+  score = 0; // Reset the score
+  initBoard(levelCounter);
 }
 
 function getAbsolutePosition(elementId) { // Function to get the absolute position of an element
@@ -132,18 +133,6 @@ function getAbsolutePosition(elementId) { // Function to get the absolute positi
   };
 }
 
-function updateNotationDisplay(mode) {
-  if (mode === 'ranks') {
-      document.querySelectorAll('.notation-322f9.alpha-d2270').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.notation-322f9.numeric-fc462').forEach(el => el.style.display = 'block');
-  } else if (mode === 'files') {
-      document.querySelectorAll('.notation-322f9.numeric-fc462').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.notation-322f9.alpha-d2270').forEach(el => el.style.display = 'block');
-  } else {
-      document.querySelectorAll('.notation-322f9.alpha-d2270').forEach(el => el.style.display = 'block');
-      document.querySelectorAll('.notation-322f9.numeric-fc462').forEach(el => el.style.display = 'block');
-  }
-  
-}
+
 
 

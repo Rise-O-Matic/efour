@@ -156,10 +156,21 @@ footer {
   }
   
   .chessboard .notation .notation-label-rank {
-    display: none;
+    display: 'none';
   }
   
   .chessboard .notation .notation-label-file {
     display: none;
   }
+
+  .chessboard .notation .notation-label-file::before {
+    content: '?';
+    display: block;
+  }
+  
+  .chessboard .notation .notation-label-rank::before {
+    content: '?';
+    display: block;
+  }
+  
   
