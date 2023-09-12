@@ -23,8 +23,10 @@ function updateBoard() {
 
   currentOrientation = levels[levelCounter-1].boardOrientation; // Get the board orientation from the current level configuration
   if (currentOrientation === "random") {
-      currentOrientation = Math.random() < 0.5 ? "white" : "black"; // Randomly set to "white" or "black"
-  }
+    currentOrientation = Math.random() < 0.5 ? "white" : "black"; // Randomly set to "white" or "black"
+} else if (currentOrientation === "alternating") {
+    currentOrientation = lastOrientation === "white" ? "black" : "white"; // Alternate between "white" and "black"
+}
 
   // Clear any existing timeouts
   clearTimeout(hintTimeout);

@@ -14,6 +14,15 @@ var gameMode = gameCoordinateTraining; // Global variable to set the game
 
 
 // Level configuration
+// Game modes:  gameCoordinateTraining, gameNotationTraining,
+// Level name: Choose a name for the level
+// Helper: Enter the helper text to be displayed in the input field
+// correctAnswer: Define the correct answer for the level
+// displayCoordinates: Set to true to display coordinates on the board
+// displayMode: Set to 'default' to display coordinates on the board, 'blind-files' to display only ranks, 'blind-ranks' to display only files, 'blind-both' to display neither
+
+
+
 const levels = [
     {// Level configuration object
         gameMode: gameCoordinateTraining,
@@ -128,7 +137,7 @@ const levels = [
     {// Level configuration object
         gameMode: gameCoordinateTraining,
         levelName: 'Coordinates, Player Randomized',
-        boardOrientation: 'random',
+        boardOrientation: 'alternating',
         helper: "Enter the pawn's coordinate (a1-h8)...",
         correctAnswer: (correctSquare => correctSquare),
         displayCoordinates: true,
@@ -137,7 +146,7 @@ const levels = [
     {// Level configuration object
         gameMode: gameCoordinateTraining,
         levelName: 'Coordinates, Player Randomized, Blind',
-        boardOrientation: 'random',
+        boardOrientation: 'alternating',
         helper: "Enter the pawn's coordinate (a1-h8)...",
         correctAnswer: (correctSquare => correctSquare),
         displayCoordinates: true,

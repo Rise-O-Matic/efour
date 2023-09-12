@@ -133,6 +133,17 @@ function getAbsolutePosition(elementId) { // Function to get the absolute positi
   };
 }
 
-
+// Function to alternate the board orientation
+function alternateBoardOrientation() {
+  if (levels[levelCounter].orientation === 'alternating') {
+    if (currentOrientation === 'white') {
+      board.orientation('black');
+      currentOrientation = 'black';
+    } else {
+      board.orientation('white');
+      currentOrientation = 'white';
+    }
+  }
+}
 
 

@@ -14,7 +14,6 @@ function placePawn() {
 }
 
 
-
 function gameCoordinateTraining() {
   // Update the correct answer square.
   correctSquare = getRandomSquare();
