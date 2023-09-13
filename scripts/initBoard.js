@@ -18,6 +18,11 @@ function initBoard() {
 // Create the board with unmovable pieces
 function updateBoard() {
 
+  var inputField = document.getElementById('userInput');
+  if (inputField) {
+        inputField.value = ''; // Reset the input field to an empty string
+    }
+
   // Get the current level configuration
   var currentLevelConfig = levels[levelCounter-1];
 
@@ -56,6 +61,11 @@ function updateBoard() {
   // Update the background color based on orientation
   var mainElement = document.querySelector('main');
     var orientationSpan = document.getElementById('boardOrientation'); // <-- Get the span that will display orientation
+
+    console.log('InitBoard function called');
+    console.log('Level Counter Element:', document.getElementById('levelCounterElement'));
+    console.log('Level Name Element:', document.getElementById('levelNameElement'));
+    
 
     if (currentOrientation === 'white') {
         mainElement.className = 'white-oriented';

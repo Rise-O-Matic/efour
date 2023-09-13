@@ -18,6 +18,7 @@ header {
     text-align: left;
     padding: 1em 0;
     padding-left: 1em;
+    z-index: 30000;
 }
 
 main {
@@ -28,69 +29,9 @@ main {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 150px); /* Adjusts for header and footer */
-}
+  }
 
-.white-oriented {
-    background-color: #393842; /* Or any light color of your choice */
-}
-
-.black-oriented {
-    background-color: #19181d; /* Or any dark color of your choice */
-}
-
-
-#board {
-    position: relative; 
-    overflow: visible;
-    width: 400px !important;
-    z-index: 1; /* Ensure the board is displayed on top */
-}
-
-#progressBarContainer {
-    width: 400px;
-    margin-top: 20px;
-}
-
-#progressBar {
-    width: 100%;
-}
-
-
-#infoPanel {
-    background-color: #ffffff00;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px; /* or adjust as per your layout */
-}
-
-#infoPanel p {
-    margin: 0 0 10px 0;
-}
-
-#board.white-oriented::before,
-#board.black-oriented::after {
-    content: '';
-    position: absolute;
-    width: 40px;  /* or the width of your king image */
-    height: 40px; /* or the height of your king image */
-    top: -50px;   /* adjust as necessary */
-    left: 50%;    /* center the image */
-    transform: translateX(-50%); /* center the image */
-}
-
-#board.white-oriented::after,
-#board.black-oriented::before {
-    content: '';
-    position: absolute;
-    width: 40px;  /* or the width of your king image */
-    height: 40px; /* or the height of your king image */
-    bottom: -50px; /* adjust as necessary */
-    left: 50%;    /* center the image */
-    transform: translateX(-50%); /* center the image */
-}
-
-
-footer {
+  footer {
     background-color: #26252c;
     color: #fff;
     text-align: center;
@@ -98,24 +39,26 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 20000;
 }
 
+  
+  /* Z-Index Group */
 
-#userInputDiv {
-    margin-top: 20px;
-    text-align: center;
-    
-}
+  #menuScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
 
-#userInput {
-    font-family: monospace;
-    padding: 5px 10px;
-    font-size: 16px;
-    width: 360px;
-}
-
-
-#particle-container {
+  #particle-container {
     position: absolute;
     overflow: hidden;
     top: 0;
@@ -123,7 +66,7 @@ footer {
     width: 100vw;  /* Cover full viewport width */
     height: 100vh; /* Cover full viewport height */
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .particle {
@@ -137,12 +80,61 @@ footer {
     pointer-events: none;
     transition: all 2s ease-out;
     mix-blend-mode: lighten;
-    z-index: 10000;
+    z-index: 100;
+}
+  
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 1); /* semi-transparent black background */
+    color: #fff; /* white text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    z-index: 10; /* high z-index to appear above all other elements */
+  }
+
+  #board {
+    position: relative; 
+    overflow: visible;
+    width: 400px !important;
+    z-index: 1; /* Ensure the board is displayed on top */
+  }
+
+/* End of Z-Index Group */
+
+
+/* Main Menu */
+#menuContent {
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  #startButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+
+
+/* Chessboard */
+
+.white-oriented {
+    background-color: #393842; /* Or any light color of your choice */
 }
 
+.black-oriented {
+    background-color: #19181d; /* Or any dark color of your choice */
+}
 
-/* CSS for 180-degree rotation */
-.rotate-board {
+.rotate-board { /* CSS for 180-degree rotation */
     animation: rotate-board-animation .3s ease-in-out;
   }
   
@@ -173,4 +165,74 @@ footer {
     display: block;
   }
   
+
+
+/* Progress Bar */
+
+#progressBarContainer {
+    width: 400px;
+    margin-top: 20px;
+}
+
+#progressBar {
+    width: 100%;
+}
+
+#infoPanel {
+    background-color: #ffffff00;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px; /* or adjust as per your layout */
+}
+
+
+
+/* Info Panel */
+
+#infoPanel p {
+    margin: 0 0 10px 0;
+}
+
+#board.white-oriented::before,
+#board.black-oriented::after {
+    content: '';
+    position: absolute;
+    width: 40px;  /* or the width of your king image */
+    height: 40px; /* or the height of your king image */
+    top: -50px;   /* adjust as necessary */
+    left: 50%;    /* center the image */
+    transform: translateX(-50%); /* center the image */
+}
+
+#board.white-oriented::after,
+#board.black-oriented::before {
+    content: '';
+    position: absolute;
+    width: 40px;  /* or the width of your king image */
+    height: 40px; /* or the height of your king image */
+    bottom: -50px; /* adjust as necessary */
+    left: 50%;    /* center the image */
+    transform: translateX(-50%); /* center the image */
+}
+
+
+/* User Input */
+
+#userInputDiv {
+    margin-top: 20px;
+    text-align: center;
+    
+}
+
+#userInput {
+    font-family: monospace;
+    padding: 5px 10px;
+    font-size: 16px;
+    width: 360px;
+}
+
+
+
+
+
   

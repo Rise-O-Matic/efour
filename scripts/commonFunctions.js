@@ -18,13 +18,15 @@ function getRandomSquare() {
     return randomFile + randomRank;
   }
 
-  //keydown event listener that plays a sound when the user presses backsapce and prevents any other sound from playing
+  
+//keydown event listener that plays a sound when the user presses backsapce and prevents any other sound from playing
 document.addEventListener('keydown', function(event) {
   if (event.code === 'Backspace') {
     deleteSound.play();
   }
 }
 );
+
 
 // Function to validate user inputs
 function inputValidation() {
@@ -64,7 +66,7 @@ let inputField = document.getElementById("userInput");
   });
 }
 
-
+// Function to spawn particles
 function spawnParticles(numParticles) {
   const container = document.getElementById('particle-container');
 
@@ -92,45 +94,20 @@ function spawnParticles(numParticles) {
   }
 }
 
-// Update the progress bar and level up if necessary
-function updateProgressBar() {
-    var progressBar = document.getElementById("progressBar");
-    
-    score += 10; //add 10 points to the score for each correct answer
-
-    progressBar.value = score; // Update the progress bar value
-    
-    if (score >= 100) {
-      levelCounter++; // Increment the counter (global variable)
-      levelUp();
-      initBoard(levelCounter);
-      
-
-    }else{
-      correctAnswerSound.play();
-      initBoard(levelCounter);
-    }
-}
-
 function levelUp() {
   levelUpSound.play();
   spawnParticles(200);
-  progressBar.value = 0; // Explicitly reset the progress bar value
-  score = 0; // Reset the score
-  initBoard(levelCounter);
-}
+  progressBar.value = 0; 
+  score = 0; 
 
-function getAbsolutePosition(elementId) { // Function to get the absolute position of an element
-  const element = document.getElementById(elementId);
-  const rect = element.getBoundingClientRect();
+  // Increment the level counter
+  levelCounter++;
 
-  const absoluteTop = rect.top + window.scrollY;
-  const absoluteLeft = rect.left + window.scrollX;
+  // Clear the board
+  board.clear();
 
-  return {
-      top: absoluteTop,
-      left: absoluteLeft
-  };
+  // Display the overlay for the next level
+  setTimeout(levelStart, 2000);
 }
 
 // Function to alternate the board orientation
@@ -146,4 +123,39 @@ function alternateBoardOrientation() {
   }
 }
 
+// Update the progress bar and level up if necessary
+function updateProgressBar() {
+  var progressBar = document.getElementById("progressBar");
+  
+  score += 10; //add 10 points to the score for each correct answer
 
+  progressBar.value = score; // Update the progress bar value
+  
+  if (score >= 100) {
+    levelUp();
+    
+  }else{
+    correctAnswerSound.play();
+    initBoard(levelCounter);
+  }
+}
+
+function levelStart() {
+  // Get the current level configuration
+  var currentLevelConfig = levels[levelCounter-1];
+
+  // Access the overlay element
+  var overlay = document.getElementById('overlay');
+
+  // Update the overlay with the level information
+  overlay.innerText = 'Level ' + currentLevelConfig.levelNumber + ': ' + currentLevelConfig.levelName;
+
+  // Display the overlay
+  overlay.style.display = 'flex';
+
+  // Set a timeout to hide the overlay and initiate the next level setup after 3 seconds
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    initBoard();
+  }, 2200);
+}

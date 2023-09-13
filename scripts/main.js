@@ -166,11 +166,12 @@ const levels = [
 
   document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.shiftKey && event.code === 'ArrowRight') {
-        // Increment the levelCounter to skip to the next level
-        levelCounter++;
         
+        // Increment the levelCounter to skip to the next level
+        levelCounter = Math.min(levelCounter + 1, levels.length);
+
         // Call the function to initialize the new level
-        levelUp();
+        initBoard(levelCounter);
 
         console.log('Skipped to level: ' + levelCounter);
     } else if (event.ctrlKey && event.shiftKey && event.code === 'ArrowLeft') {
@@ -194,9 +195,16 @@ function initializeLevel(level) {
 
 let correctAnswer = levels[levelCounter - 1].correctAnswer(correctSquare);  // Global variable to store the correct answer
 
-// DOMContentLoaded event listener
+
 document.addEventListener('DOMContentLoaded', function() {
-    initBoard(levelCounter);
-    correctAnswer = levels[levelCounter - 1].correctAnswer(correctSquare);
-    inputValidation();
-});
+    var startButton = document.getElementById('startButton');
+    var menuScreen = document.getElementById('menuScreen');
+  
+    startButton.addEventListener('click', function() {
+      menuScreen.style.display = 'none';
+      levelStart();
+      correctAnswer = levels[levelCounter - 1].correctAnswer(correctSquare);
+      inputValidation();
+    });
+  });
+  

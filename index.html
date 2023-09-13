@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eFour: Spacial Trainer</title>
+    <title>eFour: Spatial Trainer</title>
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link href="libs/chessboardjs/chessboard.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -26,10 +26,18 @@
 
     <div id="particle-container"></div>
 
+    <div id="menuScreen">
+        <div id="menuContent">
+          <h1>eFour Spatial Trainer</h1>
+          <p>Play daily to improve your spatial awareness and notation skills.</p>
+          <button id="startButton">Start Game</button>
+        </div>
+      </div>
+      
     <main class="white-oriented">
+        <div id="overlay"></div>
         <div id="infoPanel">
-            <h1><strong>Level <span id="levelCounterElement"></strong></h1>
-            <p><span id="levelNameElement">Full</span></h1>
+            <p><strong>Level <span id="levelCounterElement"></span>:</strong> <span id="levelNameElement">Full</span></p>
             <p><strong>Board Orientation:</strong> <span id="boardOrientation">White</span></p>
         </div>
         <div id="board"></div>
