@@ -8,6 +8,14 @@ const levelUpSound = new Audio("assets/sounds/levelUp.ogg");
 const errorSound = new Audio("assets/sounds/error.ogg");
 const deleteSound = new Audio("assets/sounds/delete.ogg");
 
+// Function to save the game state
+function saveGameState() {
+  localStorage.setItem('gameState', JSON.stringify({
+    level: levelCounter,
+    score: score
+  }));
+}
+
 
 // Function to generate random positions for a given color
 function getRandomSquare() {
@@ -107,7 +115,7 @@ function levelUp() {
   board.clear();
 
   // Display the overlay for the next level
-  setTimeout(levelStart, 2000);
+  setTimeout(levelStart, 0);
 }
 
 // Function to alternate the board orientation
@@ -151,11 +159,16 @@ function levelStart() {
   overlay.innerText = 'Level ' + currentLevelConfig.levelNumber + ': ' + currentLevelConfig.levelName;
 
   // Display the overlay
-  overlay.style.display = 'flex';
+  //overlay.style.display = 'flex';
 
   // Set a timeout to hide the overlay and initiate the next level setup after 3 seconds
   setTimeout(function() {
     overlay.style.display = 'none';
     initBoard();
-  }, 2200);
+  }, );
+}
+
+// Function to focus the user input field
+function focusInputField() {
+  document.getElementById('userInput').focus();
 }

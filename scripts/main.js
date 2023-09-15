@@ -44,6 +44,24 @@ const levels = [
     },
     {// Level configuration object
         gameMode: gameCoordinateTraining,
+        boardOrientation: 'black',
+        levelName: 'Files as Black',
+        helper: "Enter the pawn's file (a-h)...",
+        correctAnswer: (correctSquare => correctSquare[0]),
+        displayCoordinates: true,
+        displayMode: 'files'
+    },
+    {// Level configuration object
+        gameMode: gameCoordinateTraining,
+        levelName: 'Files as Black, Blind',
+        boardOrientation: 'black',
+        helper: "Enter the pawn's file (a-h)...",
+        correctAnswer: (correctSquare => correctSquare[0]),
+        displayCoordinates: true,
+        displayMode: 'blind-files'
+    },
+    {// Level configuration object
+        gameMode: gameCoordinateTraining,
         levelName: 'Ranks as White',
         boardOrientation: 'white',
         helper: "Enter the pawn's rank (1-8)...",
@@ -59,7 +77,24 @@ const levels = [
         correctAnswer: (correctSquare => correctSquare[1]),
         displayCoordinates: true,
         displayMode: 'blind-ranks'
-    
+    },
+    {// Level configuration object
+        gameMode: gameCoordinateTraining,
+        levelName: 'Ranks as Black',
+        boardOrientation: 'black',
+        helper: "Enter the pawn's rank (1-8)...",
+        correctAnswer: (correctSquare => correctSquare[1]),
+        displayCoordinates: true,
+        displayMode: 'ranks'
+    },
+    {// Level configuration object
+        gameMode: gameCoordinateTraining,
+        levelName: 'Ranks as Black, Blind',
+        boardOrientation: 'black',
+        helper: "Enter the pawn's rank (1-8)...",
+        correctAnswer: (correctSquare => correctSquare[1]),
+        displayCoordinates: true,
+        displayMode: 'blind-ranks'
     },
     {// Level configuration object
         gameMode: gameCoordinateTraining,
@@ -81,43 +116,6 @@ const levels = [
     },
     {// Level configuration object
         gameMode: gameCoordinateTraining,
-        boardOrientation: 'black',
-        levelName: 'Files as Black',
-        helper: "Enter the pawn's file (a-h)...",
-        correctAnswer: (correctSquare => correctSquare[0]),
-        displayCoordinates: true,
-        displayMode: 'files'
-    },
-    {// Level configuration object
-        gameMode: gameCoordinateTraining,
-        levelName: 'Files as Black, Blind',
-        boardOrientation: 'black',
-        helper: "Enter the pawn's file (a-h)...",
-        correctAnswer: (correctSquare => correctSquare[0]),
-        displayCoordinates: true,
-        displayMode: 'blind-files'
-    },
-    {// Level configuration object
-        gameMode: gameCoordinateTraining,
-        levelName: 'Ranks as Black',
-        boardOrientation: 'black',
-        helper: "Enter the pawn's rank (1-8)...",
-        correctAnswer: (correctSquare => correctSquare[1]),
-        displayCoordinates: true,
-        displayMode: 'ranks'
-    },
-    {// Level configuration object
-        gameMode: gameCoordinateTraining,
-        levelName: 'Ranks as Black, Blind',
-        boardOrientation: 'black',
-        helper: "Enter the pawn's rank (1-8)...",
-        correctAnswer: (correctSquare => correctSquare[1]),
-        displayCoordinates: true,
-        displayMode: 'blind-ranks'
-    
-    },
-    {// Level configuration object
-        gameMode: gameCoordinateTraining,
         levelName: 'Coordinates as Black',
         boardOrientation: 'black',
         helper: "Enter the pawn's coordinate (a1-h8)...",
@@ -136,16 +134,7 @@ const levels = [
     },
     {// Level configuration object
         gameMode: gameCoordinateTraining,
-        levelName: 'Coordinates, Player Randomized',
-        boardOrientation: 'alternating',
-        helper: "Enter the pawn's coordinate (a1-h8)...",
-        correctAnswer: (correctSquare => correctSquare),
-        displayCoordinates: true,
-        displayMode: 'default'
-    },
-    {// Level configuration object
-        gameMode: gameCoordinateTraining,
-        levelName: 'Coordinates, Player Randomized, Blind',
+        levelName: 'Coordinates, Alternating, Blind',
         boardOrientation: 'alternating',
         helper: "Enter the pawn's coordinate (a1-h8)...",
         correctAnswer: (correctSquare => correctSquare),
@@ -184,12 +173,6 @@ const levels = [
         console.log('Went back to level: ' + levelCounter);
     }
 });
-
-function initializeLevel(level) {
-    // Your code to initialize the new level here
-    // ...
-}
-
 
 
 

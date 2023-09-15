@@ -12,6 +12,7 @@ var currentOrientation; // Variable to store the current orientation
 console.log('Current orientation:', currentOrientation);
 
 function initBoard() {
+  focusInputField()
   updateBoard();
 }
 
