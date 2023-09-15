@@ -8,18 +8,19 @@ var levelNumber = 1;  // Global variable to store the level index number assigne
 var levelName = 'Placeholder'; // Global variable to store the level name
 var board; // Global variable to store the chessboard object
 var score = 0; // Global variable to store the score
+var correctSquare = "a1"; // Global variable to store the correct square
 
 
 var gameMode = gameCoordinateTraining; // Global variable to set the game
 
 
 // Level configuration
-// Game modes:  gameCoordinateTraining, gameNotationTraining,
+// Game modes:  gameCoordinateTraining, gameNotationTraining, gamePieceTraining, gamePieceCoordinates
 // Level name: Choose a name for the level
 // Helper: Enter the helper text to be displayed in the input field
 // correctAnswer: Define the correct answer for the level
 // displayCoordinates: Set to true to display coordinates on the board
-// displayMode: Set to 'default' to display coordinates on the board, 'blind-files' to display only ranks, 'blind-ranks' to display only files, 'blind-both' to display neither
+// displayMode: Set to 'default' to display coordinates on the board, 'blind-files' to display only blind ranks, 'blind-ranks' to display only blind files, 'blind-both' to display only '?', none to display nothing
 
 
 
@@ -140,8 +141,62 @@ const levels = [
         correctAnswer: (correctSquare => correctSquare),
         displayCoordinates: true,
         displayMode: 'blind-both'
-    },                        
-            
+    },
+    {// Level configuration object
+        gameMode: gamePieceCoordinates,
+        levelName: 'Piece Identification',
+        boardOrientation: 'white',
+        helper: "Identify the Piece [K,Q,R,B,N]...",
+        correctAnswer: (correctPiece => correctPiece[0]),
+        displayCoordinates: true,
+        displayMode: 'none'
+    },                           
+    {// Level configuration object
+        gameMode: gamePieceCoordinates,
+        levelName: 'Piece Identification',
+        boardOrientation: 'black',
+        helper: "Identify the Piece [K,Q,R,B,N]...",
+        correctAnswer: (correctAnswer => correctAnswer[0]),
+        displayCoordinates: true,
+        displayMode: 'none'
+    },                           
+    {// Level configuration object
+        gameMode: gamePieceCoordinates,
+        levelName: 'Piece Coordinates as White',
+        boardOrientation: 'white',
+        helper: "Identify the Piece [K,Q,R,B,N] Position...",
+        correctAnswer: (correctAnswer => correctAnswer),
+        displayCoordinates: true,
+        displayMode: 'both'
+    },
+    {// Level configuration object
+        gameMode: gamePieceCoordinates,
+        levelName: 'Piece Coordinates as White, Blind',
+        boardOrientation: 'white',
+        helper: "Identify the Piece [K,Q,R,B,N] Position...",
+        correctAnswer: (correctAnswer => correctAnswer),
+        displayCoordinates: true,
+        displayMode: 'blind-both'
+    },   
+    {// Level configuration object
+            gameMode: gamePieceCoordinates,
+        levelName: 'Piece Coordinates as Black',
+        boardOrientation: 'black',
+        helper: "Identify the Piece [K,Q,R,B,N] Position...",
+        correctAnswer: (correctAnswer => correctAnswer),
+        displayCoordinates: true,
+        displayMode: 'both'
+    },  
+    {// Level configuration object
+        gameMode: gamePieceCoordinates,
+        levelName: 'Piece Coordinates as Black, Blind',
+        boardOrientation: 'black',
+        helper: "Identify the Piece [K,Q,R,B,N] Position...",
+        correctAnswer: (correctAnswer => correctAnswer),
+        displayCoordinates: true,
+        displayMode: 'blind-both'
+    },
+    
 
     // ... (other levels can be added here in a similar manner
 
@@ -152,7 +207,6 @@ const levels = [
   }));  
 
 //Function to skip levels
-
   document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.shiftKey && event.code === 'ArrowRight') {
         
@@ -162,7 +216,7 @@ const levels = [
         // Call the function to initialize the new level
         initBoard(levelCounter);
 
-        console.log('Skipped to level: ' + levelCounter);
+        //console.log('Skipped to level: ' + levelCounter);
     } else if (event.ctrlKey && event.shiftKey && event.code === 'ArrowLeft') {
         // Decrement the levelCounter to go back to the previous level
         levelCounter = Math.max(levelCounter - 1, 1);
@@ -170,13 +224,9 @@ const levels = [
         // Call the function to initialize the new level
         initBoard(levelCounter);
 
-        console.log('Went back to level: ' + levelCounter);
+        //console.log('Went back to level: ' + levelCounter);
     }
 });
-
-
-
-let correctAnswer = levels[levelCounter - 1].correctAnswer(correctSquare);  // Global variable to store the correct answer
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -186,8 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
     startButton.addEventListener('click', function() {
       menuScreen.style.display = 'none';
       levelStart();
-      correctAnswer = levels[levelCounter - 1].correctAnswer(correctSquare);
       inputValidation();
     });
-  });
-  
+});
+

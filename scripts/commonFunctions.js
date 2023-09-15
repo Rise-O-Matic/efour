@@ -26,6 +26,12 @@ function getRandomSquare() {
     return randomFile + randomRank;
   }
 
+// Function to generate a random piece
+function getRandomPiece() {
+    const pieces = ['K', 'Q', 'R', 'B', 'N'];
+    return pieces[Math.floor(Math.random() * pieces.length)];
+  }
+  
   
 //keydown event listener that plays a sound when the user presses backsapce and prevents any other sound from playing
 document.addEventListener('keydown', function(event) {
@@ -158,6 +164,9 @@ function levelStart() {
   // Update the overlay with the level information
   overlay.innerText = 'Level ' + currentLevelConfig.levelNumber + ': ' + currentLevelConfig.levelName;
 
+  // Update the gameMode variable based on the current level's configuration
+  gameMode = currentLevelConfig.gameMode;
+
   // Display the overlay
   //overlay.style.display = 'flex';
 
@@ -165,8 +174,9 @@ function levelStart() {
   setTimeout(function() {
     overlay.style.display = 'none';
     initBoard();
-  }, );
+  }, 0);
 }
+
 
 // Function to focus the user input field
 function focusInputField() {

@@ -9,7 +9,7 @@ var lastOrientation; // Variable to store the last orientation
 var currentOrientation; // Variable to store the current orientation
 
 // Console log the current Orientation
-console.log('Current orientation:', currentOrientation);
+//console.log('Current orientation:', currentOrientation);
 
 function initBoard() {
   focusInputField()
@@ -41,7 +41,7 @@ function updateBoard() {
   if (lastOrientation && lastOrientation !== currentOrientation) {
     var boardElement = document.getElementById('board');
     boardElement.classList.add('rotate-board');
-    console.log('rotating board');
+    //console.log('rotating board');
     
     // Remove the class after the animation duration (1s) to reset it
     setTimeout(() => boardElement.classList.remove('rotate-board'), 1000);
@@ -63,9 +63,9 @@ function updateBoard() {
   var mainElement = document.querySelector('main');
     var orientationSpan = document.getElementById('boardOrientation'); // <-- Get the span that will display orientation
 
-    console.log('InitBoard function called');
-    console.log('Level Counter Element:', document.getElementById('levelCounterElement'));
-    console.log('Level Name Element:', document.getElementById('levelNameElement'));
+    //console.log('InitBoard function called');
+    //console.log('Level Counter Element:', document.getElementById('levelCounterElement'));
+    //console.log('Level Name Element:', document.getElementById('levelNameElement'));
     
 
     if (currentOrientation === 'white') {
@@ -81,9 +81,9 @@ function updateBoard() {
     var rankNotations = document.querySelectorAll('.notation-322f9.numeric-fc462');
     var fileNotations = document.querySelectorAll('.notation-322f9.alpha-d2270');
   
-  console.log('Current mode:', mode);
+  //console.log('Current mode:', mode);
   
-  if (rankNotations[0]) {
+  /*if (rankNotations[0]) {
     console.log('Rank notations before:', rankNotations[0].textContent, rankNotations[0].style.display);
   } else {
     console.log('Rank notations not found');
@@ -93,38 +93,42 @@ function updateBoard() {
     console.log('File notations before:', fileNotations[0].textContent, fileNotations[0].style.display);
   } else {
     console.log('File notations not found');
-  }
+  }*/
   
   
     //Set the notation display mode according to the current level configuration
     if (mode === 'ranks') {
-      console.log('Applying styles for mode: ranks');
+      //console.log('Applying styles for mode: ranks');
       fileNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
       rankNotations.forEach(el => { el.style.display = 'block'; });
     } else if (mode === 'files') {
-      console.log('Applying styles for mode: files');
+      //console.log('Applying styles for mode: files');
       rankNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
       fileNotations.forEach(el => { el.style.display = 'block'; }); 
     } else if (mode === 'blind-ranks') {
-      console.log('Applying styles for mode: blind-ranks');
+      //console.log('Applying styles for mode: blind-ranks');
       rankNotations.forEach(el => { el.style.display = ''; el.textContent = '?'; });
       fileNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
     } else if (mode === 'blind-files') {
-      console.log('Applying styles for mode: blind-files');
+      //console.log('Applying styles for mode: blind-files');
       rankNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
       fileNotations.forEach(el => { el.style.display = ''; el.textContent = '?'; });
     } else if (mode === 'blind-both') {
-      console.log('Applying styles for mode: blind-both');
+      //console.log('Applying styles for mode: blind-both');
       rankNotations.forEach(el => { el.style.display = ''; el.textContent = '?'; });
       fileNotations.forEach(el => { el.style.display = ''; el.textContent = '?'; });
+    } else if (mode === 'none') {
+      //console.log('Applying styles for mode: none');
+      rankNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
+      fileNotations.forEach(el => { el.style.display = 'none'; el.textContent = ''; });
     } else {
-      console.log('Applying default styles');
+      //console.log('Applying default styles');
       fileNotations.forEach(el => { el.style.display = 'block'; });
       rankNotations.forEach(el => { el.style.display = 'block'; });
     }
       
-      console.log('Rank notations after:', rankNotations[0].textContent, rankNotations[0].style.display);
-      console.log('File notations after:', fileNotations[0].textContent, fileNotations[0].style.display);
+      //console.log('Rank notations after:', rankNotations[0].textContent, rankNotations[0].style.display);
+      //console.log('File notations after:', fileNotations[0].textContent, fileNotations[0].style.display);
     
     }
   
@@ -136,7 +140,10 @@ function updateBoard() {
   document.getElementById('levelNameElement').innerText = currentLevelConfig.levelName;
   document.getElementById('levelCounterElement').innerText = currentLevelConfig.levelNumber;
 
-  gameMode()
+  // Call the gameMode function from the current level configuration
+  gameMode = currentLevelConfig.gameMode;
+
+  gameMode();
 
 }
 
